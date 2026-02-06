@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from db import User, Contact, get_db
 from jwt.exceptions import InvalidTokenError
-from models import RegisterUser, UserResponse
+from models import RegisterUser, UserResponse, CreateContact, ContactResponse
 import jwt
 from passlib.context import CryptContext
 from datetime import datetime, timezone, timedelta
@@ -11,6 +11,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from authlib.integrations.starlette_client import OAuth
 from dotenv import load_dotenv
 import os
+import phonenumbers
 
 load_dotenv()
 
@@ -195,3 +196,53 @@ async def github_callback(request: Request, db: Session = Depends(get_db)):
     access_token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITM)
 
     return {'access_token': access_token, 'type': 'bearer'}
+
+@app.post('/contacts', response_model=ContactResponse)
+def add_contact(contact: CreateContact, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    parsed = phonenumbers.parse(contact.phone, None)
+    phone_e164 = phonenumbers.format_number(
+        parsed,
+        phonenumbers.PhoneNumberFormat.E164
+    )
+    contact_db = Contact(first_name=contact.first_name, last_name=contact.last_name, phone=phone_e164, email=contact.email, owner_id=user.id)
+
+    db.add(contact_db)
+    db.commit()
+    db.refresh(contact_db)
+
+    return contact_db
+
+@app.get('/contact', response_model=list[ContactResponse])
+def get_contact(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    return db.query(Contact).filter(Contact.owner_id == user.id).all()
+
+@app.put('/contact/put/{id}', response_model=ContactResponse)
+def edit_contact(id: int, new_full_name: str | None = None, new_phone:str | None = None, new_email: str | None = None, db: Session = Depends(get_db)) :
+    contact = db.query(Contact).filter(Contact.id == id).first()
+
+    if new_full_name:
+        contact.first_name = new_full_name.split(' ')[0]
+        contact.last_name = new_full_name.split(' ')[1]
+
+    if new_phone:
+        contact.phone = new_phone
+
+    if new_email:
+        contact.email = new_email
+
+    db.commit()
+    db.refresh(contact)
+
+    return contact
+
+@app.delete('/contact/delete/{id}')
+def delete_contact(id: int, db: Session = Depends(get_db)):
+    contact = db.query(Contact).filter(Contact.id == id).first()
+
+    if not contact:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Contact not found')
+
+    db.delete(contact)
+    db.commit()
+
+    return id
