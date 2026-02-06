@@ -1,0 +1,46 @@
+.title {
+    font-family: 'Montserrat';
+}
+
+.Login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 230px;
+    border-radius: 30px;
+    padding: 20px;
+    border: 1px solid black;
+    row-gap: 12px;
+}
+
+.label {
+    font-size: 19px;
+    font-family: 'Montserrat';
+}
+
+.input {
+    height: 25px;
+}
+
+.btn {
+    height: 50px;
+    background: black;
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 20px;
+    border-radius: 30px;
+    transition: ease color, background .8s ;
+}
+
+.btn:hover {
+    background: white;
+    color: black;
+}

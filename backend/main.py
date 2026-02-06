@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, status, HTTPException, Request
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from db import User, Contact, get_db
 from jwt.exceptions import InvalidTokenError
@@ -23,11 +24,24 @@ GITHUB_GLIENT_SECRET = os.getenv('GITHUB_GLIENT_SECRET')
 GOOGLE_GLIENT_ID = os.getenv('GOOGLE_GLIENT_ID')
 GOOGLE_GLIENT_SECRET = os.getenv('GOOGLE_GLIENT_SECRET')
 
+origins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173'
+]
+
 app = FastAPI()
 
 app.add_middleware(
     SessionMiddleware,
     secret_key=SECRET_KEY
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,        
+    allow_credentials=True,
+    allow_methods=["*"],          
+    allow_headers=["*"],
 )
 
 oauth = OAuth()
