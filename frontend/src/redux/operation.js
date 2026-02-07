@@ -35,3 +35,20 @@ export const LoginUser = createAsyncThunk(
     }
   }
 );
+
+export const GetUser = createAsyncThunk('auth/GetUser', async (_, { rejectWithValue, getState }) => {
+    try {
+        const token = getState().auth.token
+
+        if (!token) return rejectWithValue('Invalid Token!')
+        
+        setAuthHeaders(token)
+
+        const response = await axios.get('/users/me')
+
+        return response.data
+
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
+})

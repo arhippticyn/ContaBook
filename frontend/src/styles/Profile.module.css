@@ -1,0 +1,30 @@
+.Profile {
+    padding: 10px;
+}
+
+.title {
+    font-family: 'Montserrat';
+}
+
+.username {
+    font-family: 'Montserrat';
+    animation: translate .7s ease  alternate;
+}
+
+.email {
+    font-family: 'Montserrat';
+    animation: translate .9s ease  alternate;
+}
+
+
+@keyframes translate {
+    0% {
+        transform: translate(-300px);
+    }
+    50% {
+        transform: translate(-150px);
+    }
+    100% {
+        transform: translate(0px);
+    }
+}
