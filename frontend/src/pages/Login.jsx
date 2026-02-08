@@ -1,20 +1,22 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/Login.module.css';
 import { LoginUser } from '../redux/operation';
 import GoogleLogin from '../components/GoogleLogin';
 import GithubLogin from '../components/GithubLogin';
+import { selectError } from '../redux/selectors';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const isError = useSelector(selectError);
 
-  const handleLogin = e => {
-    e.preventDefault()
-    const form = e.target
-    const username = form.elements.username.value
-    const password = form.elements.password.value
-    dispatch(LoginUser({username:username, password:password}))
-    form.reset()
-  }
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const username = form.elements.username.value;
+    const password = form.elements.password.value;
+    dispatch(LoginUser({ username: username, password: password }));
+    form.reset();
+  };
   return (
     <div className={styles.Login}>
       <h2 className={styles.title}>Login</h2>
@@ -37,10 +39,20 @@ const Login = () => {
         </button>
       </form>
 
-      <ul style={{listStyle: 'none', display: 'flex', columnGap: '10px'}}>
-        <li><GoogleLogin /></li>
-        <li className={styles.li}><GithubLogin /></li>
+      <ul style={{ listStyle: 'none', display: 'flex', columnGap: '10px' }}>
+        <li>
+          <GoogleLogin />
+        </li>
+        <li className={styles.li}>
+          <GithubLogin />
+        </li>
       </ul>
+
+      {isError && (
+        <div style={{ marginTop: '10px', fontFamily: 'Montserrat' }}>
+          {isError}
+        </div>
+      )}
     </div>
   );
 };

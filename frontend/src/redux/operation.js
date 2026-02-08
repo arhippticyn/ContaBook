@@ -52,3 +52,23 @@ export const GetUser = createAsyncThunk('auth/GetUser', async (_, { rejectWithVa
         return rejectWithValue(error.message)
     }
 })
+
+export const AddContacnts = createAsyncThunk('contact/AddContacnts', async (contact, { rejectWithValue }) => {
+    try {
+        const response = await axios.post('/contacts', contact);
+
+        return response.data
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
+});
+
+export const GetContact = createAsyncThunk('contact/GetContact', async (_,{ rejectWithValue }) => {
+    try {
+        const response = await axios.get('/contact');
+
+        return response.data
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
+});

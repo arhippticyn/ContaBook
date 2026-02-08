@@ -5,7 +5,8 @@ const AuthInitialState = {
     user: {username: null, email: null},
     token: '',
     isLogin: false,
-    isRefreshing: false
+    isRefreshing: false,
+    error: null
 }
 
 const AuthSlice = createSlice({
@@ -25,28 +26,40 @@ const AuthSlice = createSlice({
 
     extraReducers: (builder) => {
         builder
-            .addCase(RegisterUser.pending, (state) => {
-                state.isRefreshing = true
-            })
-            .addCase(RegisterUser.fulfilled, (state, action) => {
-                state.isRefreshing = false
-                state.user = action.payload
-            })
-            .addCase(LoginUser.pending, (state) => {
-                state.isRefreshing = true;
-            })
-            .addCase(LoginUser.fulfilled, (state, action) => {
-                state.isRefreshing = false
-                state.token = action.payload.access_token
-                state.isLogin = true
-            })
-            .addCase(GetUser.pending, (state) => {
-                state.isRefreshing = true
-            })
-            .addCase(GetUser.fulfilled, (state, action) => {
-                state.isRefreshing = false
-                state.user = action.payload
-            })
+          .addCase(RegisterUser.pending, (state) => {
+            state.isRefreshing = true;
+          })
+          .addCase(RegisterUser.fulfilled, (state, action) => {
+            state.isRefreshing = false;
+            state.user = action.payload;
+          })
+          .addCase(RegisterUser.rejected, (state, action) => {
+            state.isRefreshing = false;
+            state.error = action.payload;
+          })
+          .addCase(LoginUser.pending, (state) => {
+            state.isRefreshing = true;
+          })
+          .addCase(LoginUser.fulfilled, (state, action) => {
+            state.isRefreshing = false;
+            state.token = action.payload.access_token;
+            state.isLogin = true;
+          })
+          .addCase(LoginUser.rejected, (state, action) => {
+            state.isRefreshing = false;
+            state.error = action.payload;
+          })
+          .addCase(GetUser.pending, (state) => {
+            state.isRefreshing = true;
+          })
+          .addCase(GetUser.fulfilled, (state, action) => {
+            state.isRefreshing = false;
+            state.user = action.payload;
+          })
+          .addCase(GetUser.rejected, (state, action) => {
+            state.isRefreshing = false;
+            state.error = action.payload;
+          });
     }
 })
 

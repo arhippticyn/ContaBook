@@ -1,9 +1,11 @@
 import { RegisterUser } from '../redux/operation';
+import { selectError } from '../redux/selectors';
 import styles from '../styles/Signup.module.css';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const SignUp = () => {
   const dispatch = useDispatch()
+  const isError = useSelector(selectError)
 
   const handleRegister = e => {
     e.preventDefault()
@@ -32,8 +34,16 @@ const SignUp = () => {
         </label>
         <input type="password" name="password" id="" className={styles.input} />
 
-        <button type="submit" className={styles.btn}>Sign Up</button>
+        <button type="submit" className={styles.btn}>
+          Sign Up
+        </button>
       </form>
+
+      {isError && (
+        <div style={{ marginTop: '10px', fontFamily: 'Montserrat' }}>
+          {isError}
+        </div>
+      )}
     </div>
   );
 };
