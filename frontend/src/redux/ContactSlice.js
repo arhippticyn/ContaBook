@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { AddContacnts, GetContact } from "./operation"
+import { AddContacnts, ContactEdit, GetContact } from "./operation"
 
 const ContactInitialState = {
     contacts: [],
@@ -47,6 +47,23 @@ const ContactSlice = createSlice({
       })
       .addCase(GetContact.rejected, (state, action) => {
         state.isRefreshing = false
+        state.error = action.payload
+      })
+      .addCase(ContactEdit.pending, (state) => {
+        state.isRefreshing = true
+      })
+      .addCase(ContactEdit.fulfilled, (state, action) => {
+        state.isRefreshing = false
+        const index = state.contacts.findIndex( contact => contact.id === action.payload.id)
+
+        if (index !== -1){
+          state.contacts[index] = action.payload
+        }
+
+        state.AddPutPage = false
+        state.selectedId = null
+      })
+      .addCase(ContactEdit.rejected, (state,action) => {
         state.error = action.payload
       })
   },

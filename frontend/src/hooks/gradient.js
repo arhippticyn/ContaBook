@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-  export const UseGenerateGradient = (dependecy) => {
+  export const useGenerateGradient = (dependecy) => {
     return useMemo(() => {
       const r = Math.floor(Math.random() * 200);
       const g = Math.floor(Math.random() * 200);

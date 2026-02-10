@@ -4,13 +4,13 @@ import styles from '../styles/Contacts.module.css';
 import { useEffect } from 'react';
 import { GetContact } from "../redux/operation"
 import ContactCard from "./ContactCard";
-import { UseGenerateGradient } from "../hooks/gradient";
+import { useGenerateGradient } from "../hooks/gradient";
 import { selectAddPage } from "../redux/ContactSlice";
 
 const ContactList = () => {
     const contacts = useSelector(selectContacts)
     const dispatch = useDispatch()
-    const btnGradient = UseGenerateGradient(999)
+    const btnGradient = useGenerateGradient(999)
 
     useEffect(() => {
         dispatch(GetContact())
@@ -22,7 +22,7 @@ const ContactList = () => {
         <button className={styles.btnAdd} onClick={() => dispatch(selectAddPage())} style={{background: btnGradient}}>Add +</button>
       </div>
       <ul className={styles.ContactListUl}>
-        {contacts.map((contact) => {
+        {contacts.filter(Boolean).map((contact) => {
           return <ContactCard key={contact.id} contact={contact} />;
         })}
       </ul>

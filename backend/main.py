@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from db import User, Contact, get_db
 from jwt.exceptions import InvalidTokenError
-from models import RegisterUser, UserResponse, CreateContact, ContactResponse
+from models import RegisterUser, UserResponse, CreateContact, ContactResponse, ContactUpdate
 import jwt
 from passlib.context import CryptContext
 from datetime import datetime, timezone, timedelta
@@ -243,18 +243,18 @@ def get_contact(user: User = Depends(get_current_user), db: Session = Depends(ge
     return db.query(Contact).filter(Contact.owner_id == user.id).all()
 
 @app.put('/contact/put/{id}', response_model=ContactResponse)
-def edit_contact(id: int, new_full_name: str | None = None, new_phone:str | None = None, new_email: str | None = None, db: Session = Depends(get_db)) :
+def edit_contact(id: int, put_data: ContactUpdate, db: Session = Depends(get_db)) :
     contact = db.query(Contact).filter(Contact.id == id).first()
 
-    if new_full_name:
-        contact.first_name = new_full_name.split(' ')[0]
-        contact.last_name = new_full_name.split(' ')[1]
+    if put_data.new_full_name:
+        contact.first_name = put_data.new_full_name.split(' ')[0]
+        contact.last_name = put_data.new_full_name.split(' ')[1]
 
-    if new_phone:
-        contact.phone = new_phone
+    if put_data.new_phone:
+        contact.phone = put_data.new_phone
 
-    if new_email:
-        contact.email = new_email
+    if put_data.new_email:
+        contact.email = put_data.new_email
 
     db.commit()
     db.refresh(contact)

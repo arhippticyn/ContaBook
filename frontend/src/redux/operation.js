@@ -72,3 +72,20 @@ export const GetContact = createAsyncThunk('contact/GetContact', async (_,{ reje
         return rejectWithValue(error.message)
     }
 });
+
+export const ContactEdit = createAsyncThunk('contact/ContactEdit', async ({id, new_full_name, new_phone, new_email}, { rejectWithValue }) => {
+    try {
+        const response = await axios.put(`/contact/put/${id}`, {
+            
+              new_full_name,
+              new_phone,
+              new_email
+            
+        })
+
+        return response.data
+
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
+})

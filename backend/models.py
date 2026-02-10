@@ -25,6 +25,10 @@ class CreateContact(BaseModel):
     phone: str
     email: EmailStr
 
+class ContactUpdate(BaseModel):
+    new_full_name: str | None = None
+    new_phone: str | None = None
+    new_email: EmailStr | None = None
 
 class ContactResponse(BaseModel):
     id: int
