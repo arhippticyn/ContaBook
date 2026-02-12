@@ -73,60 +73,72 @@ title {
 }
 
 .BtnEdit {
-        width: 200px;
-    height: 50px;
-    font-size: 23px;
-    font-family: 'Montserrat';
-    font-weight: 600;
-    color: white;
-    border-radius: 15px;
-    border: none;
-} 
+  width: 100px;
+  height: 50px;
+  font-size: 23px;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  color: white;
+  border-radius: 15px;
+  border: none;
+}
+
+.btnDelete {
+  width: 100px;
+  height: 50px;
+  font-size: 23px;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  background: red;
+}
 
 .contactTitle {
-    font-family: 'Montserrat';
-    color: white;
-    font-style: italic;
+  font-family: 'Montserrat';
+  color: white;
+  font-style: italic;
 }
 
 .contactPhone {
-    font-family: 'Montserrat';
-    color: white;
-    font-size: 20px;
-    text-decoration: none;
+  font-family: 'Montserrat';
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
 }
 
 .contactEmail {
-    font-family: 'Montserrat';
-    color: white;
-    font-size: 20px;
-    text-decoration: none;
-    margin-top: 10px;
+  font-family: 'Montserrat';
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+  margin-top: 10px;
 }
 
 .contactInfo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .btnAdd {
-    width: 200px;
-    height: 50px;
-    font-size: 23px;
-    font-family: 'Montserrat';
-    font-weight: 600;
-    color: white;
-    border-radius: 15px;
+  width: 200px;
+  height: 50px;
+  font-size: 23px;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  color: white;
+  border-radius: 15px;
 }
 
 .btnSelect {
-      width: 200px;
-    height: 50px;
-    font-size: 23px;
-    font-family: 'Montserrat';
-    font-weight: 600;
-    color: white;
-    border-radius: 15px;
-    border: none;
+  width: 200px;
+  height: 50px;
+  font-size: 23px;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  color: white;
+  border-radius: 15px;
+  border: none;
 }

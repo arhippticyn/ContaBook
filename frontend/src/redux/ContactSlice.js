@@ -1,12 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { AddContacnts, ContactEdit, GetContact } from "./operation"
+import { createSlice } from '@reduxjs/toolkit'
+import {
+  AddContacnts,
+  ContactEdit,
+  DeleteContact,
+  GetContact,
+} from './operation'
 
 const ContactInitialState = {
-    contacts: [],
-    isRefreshing: false,
-    error: null,
-    selectedId: null,
-    AddPutPage: false
+  contacts: [],
+  isRefreshing: false,
+  error: null,
+  selectedId: null,
+  AddPutPage: false,
 }
 
 const ContactSlice = createSlice({
@@ -14,31 +19,31 @@ const ContactSlice = createSlice({
   initialState: ContactInitialState,
   reducers: {
     SelectPage(state, action) {
-      state.AddPutPage = false;
-      state.selectedId = null;
+      state.AddPutPage = false
+      state.selectedId = null
     },
     selectContact(state, action) {
-      state.selectedId = action.payload;
-      state.AddPutPage = true;
+      state.selectedId = action.payload
+      state.AddPutPage = true
     },
     selectAddPage(state) {
-        state.AddPutPage = true
-    }
+      state.AddPutPage = true
+    },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(AddContacnts.pending, (state) => {
-        state.isRefreshing = true;
+      .addCase(AddContacnts.pending, state => {
+        state.isRefreshing = true
       })
       .addCase(AddContacnts.fulfilled, (state, action) => {
-        state.isRefreshing = false;
-        state.contacts.push(action.payload);
+        state.isRefreshing = false
+        state.contacts.push(action.payload)
       })
       .addCase(AddContacnts.rejected, (state, action) => {
-        state.isRefreshing = false;
-        state.error = action.payload;
+        state.isRefreshing = false
+        state.error = action.payload
       })
-      .addCase(GetContact.pending, (state) => {
+      .addCase(GetContact.pending, state => {
         state.isRefreshing = true
       })
       .addCase(GetContact.fulfilled, (state, action) => {
@@ -49,25 +54,41 @@ const ContactSlice = createSlice({
         state.isRefreshing = false
         state.error = action.payload
       })
-      .addCase(ContactEdit.pending, (state) => {
+      .addCase(ContactEdit.pending, state => {
         state.isRefreshing = true
       })
       .addCase(ContactEdit.fulfilled, (state, action) => {
         state.isRefreshing = false
-        const index = state.contacts.findIndex( contact => contact.id === action.payload.id)
+        const index = state.contacts.findIndex(
+          contact => contact.id === action.payload.id
+        )
 
-        if (index !== -1){
+        if (index !== -1) {
           state.contacts[index] = action.payload
         }
 
         state.AddPutPage = false
         state.selectedId = null
       })
-      .addCase(ContactEdit.rejected, (state,action) => {
+      .addCase(ContactEdit.rejected, (state, action) => {
+        state.isRefreshing = false
+        state.error = action.payload
+      })
+      .addCase(DeleteContact.pending, state => {
+        state.isRefreshing = true
+      })
+      .addCase(DeleteContact.fulfilled, (state, action) => {
+        state.isRefreshing = false
+        state.contacts = state.contacts.filter(
+          contact => contact.id !== action.payload
+        )
+      })
+      .addCase(DeleteContact.rejected, (state, action) => {
+        state.isRefreshing = false
         state.error = action.payload
       })
   },
-});
+})
 
 export const { SelectPage, selectContact, selectAddPage } = ContactSlice.actions
 

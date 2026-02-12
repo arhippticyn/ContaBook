@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { NavLink, Routes, Route } from 'react-router-dom';
-import styles from './styles/Nav.module.css';
+import styles from './styles/Home.module.css';
 import { RotatingLines } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
 import { selectIslogin } from './redux/selectors.js';

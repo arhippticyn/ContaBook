@@ -1,91 +1,115 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000';
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
 
 export const setAuthHeaders = token => {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }
 
-export const RegisterUser = createAsyncThunk('auth/RegisterUser', async (user, {rejectWithValue}) => {
+export const RegisterUser = createAsyncThunk(
+  'auth/RegisterUser',
+  async (user, { rejectWithValue }) => {
     try {
-        const response = await axios.post('/auth/register', user)
+      const response = await axios.post('/auth/register', user)
 
-        return response.data
+      return response.data
     } catch (error) {
-        return rejectWithValue(error.message)
+      return rejectWithValue(error.message)
     }
-});
+  }
+)
 
 export const LoginUser = createAsyncThunk(
   'auth/LoginUser',
   async (creditials, { rejectWithValue }) => {
     try {
-        const data = new URLSearchParams()
-        data.append('username', creditials.username)
-        data.append('password', creditials.password)
+      const data = new URLSearchParams()
+      data.append('username', creditials.username)
+      data.append('password', creditials.password)
 
-        const response = await axios.post('/auth/login', data)
+      const response = await axios.post('/auth/login', data)
 
-        setAuthHeaders(response.data.access_token)
+      setAuthHeaders(response.data.access_token)
 
-        return response.data
+      return response.data
     } catch (error) {
-        return rejectWithValue(error.message)
+      return rejectWithValue(error.message)
     }
   }
-);
+)
 
-export const GetUser = createAsyncThunk('auth/GetUser', async (_, { rejectWithValue, getState }) => {
+export const GetUser = createAsyncThunk(
+  'auth/GetUser',
+  async (_, { rejectWithValue, getState }) => {
     try {
-        const token = getState().auth.token
+      const token = getState().auth.token
 
-        if (!token) return rejectWithValue('Invalid Token!')
-        
-        setAuthHeaders(token)
+      if (!token) return rejectWithValue('Invalid Token!')
 
-        const response = await axios.get('/users/me')
+      setAuthHeaders(token)
 
-        return response.data
+      const response = await axios.get('/users/me')
 
+      return response.data
     } catch (error) {
-        return rejectWithValue(error.message)
+      return rejectWithValue(error.message)
     }
-})
+  }
+)
 
-export const AddContacnts = createAsyncThunk('contact/AddContacnts', async (contact, { rejectWithValue }) => {
+export const AddContacnts = createAsyncThunk(
+  'contact/AddContacnts',
+  async (contact, { rejectWithValue }) => {
     try {
-        const response = await axios.post('/contacts', contact);
+      const response = await axios.post('/contacts', contact)
 
-        return response.data
+      return response.data
     } catch (error) {
-        return rejectWithValue(error.message)
+      return rejectWithValue(error.message)
     }
-});
+  }
+)
 
-export const GetContact = createAsyncThunk('contact/GetContact', async (_,{ rejectWithValue }) => {
+export const GetContact = createAsyncThunk(
+  'contact/GetContact',
+  async (_, { rejectWithValue }) => {
     try {
-        const response = await axios.get('/contact');
+      const response = await axios.get('/contact')
 
-        return response.data
+      return response.data
     } catch (error) {
-        return rejectWithValue(error.message)
+      return rejectWithValue(error.message)
     }
-});
+  }
+)
 
-export const ContactEdit = createAsyncThunk('contact/ContactEdit', async ({id, new_full_name, new_phone, new_email}, { rejectWithValue }) => {
+export const ContactEdit = createAsyncThunk(
+  'contact/ContactEdit',
+  async ({ id, new_full_name, new_phone, new_email }, { rejectWithValue }) => {
     try {
-        const response = await axios.put(`/contact/put/${id}`, {
-            
-              new_full_name,
-              new_phone,
-              new_email
-            
-        })
+      const response = await axios.put(`/contact/put/${id}`, {
+        new_full_name,
+        new_phone,
+        new_email,
+      })
 
-        return response.data
-
+      return response.data
     } catch (error) {
-        return rejectWithValue(error.message)
+      return rejectWithValue(error.message)
     }
-})
+  }
+)
+
+export const DeleteContact = createAsyncThunk(
+  'contact/DeleteContact',
+  async (id , { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`/contact/delete/${id}`)
+
+      return id
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  }
+)

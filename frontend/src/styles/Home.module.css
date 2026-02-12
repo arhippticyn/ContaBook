@@ -1,0 +1,199 @@
+.nav {
+  align-items: center;
+  column-gap: 20px;
+  padding: 10px;
+  display: none;
+}
+
+.basicNav {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.navItem {
+  color: black;
+  text-decoration: none;
+  font-family: 'Montserrat';
+}
+
+.navItem.openNav {
+  font-size: 24px;
+}
+
+.loginNav {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.burgerBtn {
+  background: transparent;
+  border: none;
+  position: relative;
+  z-index: 1001;
+}
+
+.mobileBurger {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 80%;
+  max-width: 320px;
+  height: 100vh;
+
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+
+  transform: translateX(-100%);
+  opacity: 0;
+
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+
+  z-index: 1000;
+}
+
+.mobileBurger.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.btnBurgerClose {
+  border: none;
+  background: transparent;
+  padding-left: 15px;
+  width: 70px;
+}
+
+.mobileBurgerList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.News {
+  padding: 15px;
+  min-width: 260px;
+  max-width: 767px;
+}
+
+.formSearch {
+  height: 30px;
+}
+
+.inputSearch {
+  width: 250px;
+  height: 35px;
+  border-radius: 15px;
+}
+
+.inputSearch::placeholder {
+  font-family: 'Montserrat';
+  font-size: 16px;
+}
+
+.btnSearch {
+  width: 50px;
+  height: 35px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+}
+
+.NewsList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.NewsItem {
+  max-width: 755px;
+  min-width: 250px;
+}
+
+.NewsItemImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 15px 15px 0 0;
+  object-fit: cover;
+  max-width: 720px;
+}
+
+.NewsInfo {
+  padding: 0;
+}
+
+.NewsItemAuthor {
+  font-family: 'Montserrat';
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.NewsItemTitle {
+  font-family: 'Montserrat';
+  font-size: 23px;
+}
+
+.NewsItemDescr {
+  font-family: 'Montserrat';
+  font-size: 18px;
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+    justify-content: space-between;
+  }
+  .News {
+    width: 100%;
+  }
+  .formSearch {
+    height: 100px;
+  }
+  .inputSearch {
+    width: 300px;
+  }
+  .btnSearch {
+    width: 70px;
+    height: 70px;
+  }
+  .NewsItemImg {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1023px) {
+  .News {
+    min-width: 1023px;
+    max-width: 1920px;
+  }
+  .NewsItem {
+    display: flex;
+    align-items: center;
+    max-width: 1100px;
+    height: auto;
+    column-gap: 10px;
+  }
+
+  .NewsItemImg {
+    border-radius: 15px 0px 0px 15px;
+    height: 360px;
+    width: 650px;
+  }
+
+  .NewsInfo {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
