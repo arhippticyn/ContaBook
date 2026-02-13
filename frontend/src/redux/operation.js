@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.baseURL = 'https://contabook.onrender.com'
 
 export const setAuthHeaders = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
