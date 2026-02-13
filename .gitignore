@@ -13,6 +13,8 @@ docker-compose.yml
 /frontend/Dockerfile
 /backend/alembic.ini
 /backend/alembic
+frontend/vercel.json
+
 
 # Distribution / packaging
 .Python

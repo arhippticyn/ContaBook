@@ -23,6 +23,7 @@ const Profile = () => {
       dispatch(setToken(token))
     }
     dispatch(GetUser())
+    window.history.replaceState({}, document.title, "/profile")
   }, [dispatch])
 
   return (
