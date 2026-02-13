@@ -27,8 +27,7 @@ GOOGLE_GLIENT_ID = os.getenv('GOOGLE_GLIENT_ID')
 GOOGLE_GLIENT_SECRET = os.getenv('GOOGLE_GLIENT_SECRET')
 
 origins = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173'
+    'https://conta-book.vercel.app'
 ]
 
 app = FastAPI()
@@ -145,12 +144,12 @@ def read_user(user: User = Depends(get_current_user)):
 
 @app.get('/auth/google')
 async def google_login(request: Request):
-    redirect_uri = 'http://127.0.0.1:8000/auth/google/callback'
+    redirect_uri = 'https://contabook.onrender.com/auth/google/callback'
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 @app.get('/auth/github')
 async def github_login(request: Request):
-    redirect_uri = 'http://127.0.0.1:8000/auth/github/callback'
+    redirect_uri = 'https://contabook.onrender.com/auth/github/callback'
     return await oauth.github.authorize_redirect(request, redirect_uri)
 
 @app.get('/auth/google/callback')
@@ -181,7 +180,7 @@ async def google_callback(request: Request, db: Session = Depends(get_db)):
 
     params = urlencode({'token': access_token})
 
-    url = f'http://localhost:5173/profile/?{params}'
+    url = f'https://conta-book.vercel.app/profile/?{params}'
 
 
     return RedirectResponse(url=url)
@@ -218,7 +217,7 @@ async def github_callback(request: Request, db: Session = Depends(get_db)):
 
     params = urlencode({'token': access_token})
 
-    url = f'http://localhost:5173/profile/?{params}'
+    url = f'https://conta-book.vercel.app/profile/?{params}'
 
 
     return RedirectResponse(url=url)
