@@ -14,7 +14,7 @@ title {
 .form {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 91%;
   height: 350px;
   border-radius: 30px;
   padding: 20px;
@@ -221,5 +221,9 @@ title {
     }
     .burgerBtn {
         display: none;
+    }
+
+    .form {
+      width: 500px;
     }
 }
