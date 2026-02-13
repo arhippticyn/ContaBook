@@ -5,7 +5,7 @@ const GoogleLogin = () => {
   return (
     <button
       className={styles.loginBtn}
-      onClick={() => (window.location.href = 'http://127.0.0.1:8000/auth/google')}
+      onClick={() => (window.location.href = 'https://contabook.onrender.com/auth/google')}
     >
       Log In with Google <FcGoogle className={styles.loginBtnImg} />
     </button>

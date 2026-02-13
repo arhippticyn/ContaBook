@@ -6,7 +6,7 @@ const GithubLogin = () => {
     <button
       className={styles.loginBtn}
       onClick={() =>
-        (window.location.href = 'http://127.0.0.1:8000/auth/github')
+        (window.location.href = 'https://contabook.onrender.com/auth/github')
       }
     >
       Log In with Github <FaGithub className={styles.loginBtnImg} />
